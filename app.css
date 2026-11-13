@@ -1,0 +1,19 @@
+/* Stockist web shell: fit the 390x844 design to the phone screen, inside the system bars */
+:root { --stk-bg: #1B3A3B; color-scheme: light; }
+html, body { margin: 0; height: 100%; background: var(--stk-bg); overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+input, textarea { -webkit-user-select: text; user-select: text; }
+#stk-stage { position: fixed; left: 50%; top: 50%; width: 390px; height: 844px; transform-origin: center center; }
+#stk-insets { position: fixed; left: 0; top: 0; width: 0; height: 0; visibility: hidden; pointer-events: none;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+/* camera live on the camera tab: the ML Kit preview is drawn behind the WebView */
+html.stk-live, html.stk-live body, html.stk-live [data-stk-root] { background: transparent !important; }
+/* camera live on the full scan page: show only that page */
+html.stk-live-page, html.stk-live-page body, html.stk-live-page [data-stk-root], html.stk-live-page [data-stk-scan] { background: transparent !important; }
+html.stk-live-page [data-stk-root] * { visibility: hidden; }
+html.stk-live-page [data-stk-scan], html.stk-live-page [data-stk-scan] * { visibility: visible; }
+
+/* web camera: the video is drawn behind the page, like the ML Kit preview in the Android app */
+#stk-video { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1; background: #000; display: none; }
+html.stk-cam-on #stk-video { display: block; }
+html.stk-cam-on, html.stk-cam-on body { background: #000; }
+html.stk-cam-on.stk-live, html.stk-cam-on.stk-live body, html.stk-cam-on.stk-live-page, html.stk-cam-on.stk-live-page body { background: transparent !important; }
